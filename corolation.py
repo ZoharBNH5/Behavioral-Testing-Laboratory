@@ -41,7 +41,6 @@ for animal, vector in animal_vectors.items():
         mean_duration = np.mean(vector)  # Calculate the mean for the current animal
         mean_durations[animal] = {"mean_duration": mean_duration}
 
-print(f"Mean durations per animal: {mean_durations}")
 
 data_files = {
     'C1B': 'C1B_271124_new.mat',
@@ -66,7 +65,8 @@ for animal, file in data_files.items():
 
 # Print the final dictionary
 print("Animal Data (Mean Duration and Crossing Times):")
-print(mean_durations)
+for animal, stats in mean_durations.items():
+    print(f"{animal}: Mean Duration = {round(stats['mean_duration'], 2)}, number of crossing times = {round(stats['number_of_crossings'], 2)}")
 
 # Prepare data for the scatter plot
 x_values = []  # Number of crossings
