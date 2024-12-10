@@ -92,6 +92,7 @@ for intervals in grooming_data.values():
                 overlap_end = min(end_time, bin_end)
                 total_grooming_per_bin[i] += (overlap_end - overlap_start)
 
+print(f"Total grooming time in all mouses per bin: {total_grooming_per_bin}")
 # Plot the histogram
 plt.figure(figsize=(10, 6))
 plt.bar(range(len(total_grooming_per_bin)), total_grooming_per_bin, width=0.8, color='skyblue', edgecolor='black')
@@ -106,40 +107,6 @@ plt.show()
 # Calculate the midpoints of the bins for plotting
 bins_midpoints = [(time_bins[i] + time_bins[i + 1]) / 2 for i in range(len(time_bins) - 1)]
 
-# Perform linear regression for total grooming duration per bin
-slope, intercept, r_value, p_value, std_err = linregress(bins_midpoints, total_grooming_per_bin)
-regression_line = [slope * x + intercept for x in bins_midpoints]
-
-# Print the results
-print(f"Slope: {slope:.4f}")
-print(f"Intercept: {intercept:.4f}")
-print(f"R-squared: {r_value**2:.4f}")
-print(f"P-value: {p_value:.4f}")
-print(f"Standard Error: {std_err:.4f}")
-
-# Plotting the points and regression line
-plt.figure(figsize=(10, 6))
-plt.scatter(bins_midpoints, total_grooming_per_bin, color='blue', label='Grooming Duration (per Bin)')
-plt.plot(bins_midpoints, regression_line, linestyle='--', color='red', label=f'Regression Line (R²={r_value**2:.2f})')
-
-# Customize the plot
-plt.xticks(bins_midpoints, [f'{int(bin_start)}-{int(bin_start + bin_size)}' for bin_start in time_bins[:-1]])
-plt.xlabel('Time Bins (seconds)', fontsize=12)
-plt.ylabel('Total Grooming Duration (seconds)', fontsize=12)
-plt.title('Total Grooming Duration Across All Mice by Time Bins (with Regression)', fontsize=14)
-plt.grid(axis='y', linestyle='--', alpha=0.7)
-plt.legend()
-plt.tight_layout()
-plt.show()
-
-# Display regression summary
-{
-    "Slope": slope,
-    "Intercept": intercept,
-    "R-squared": r_value**2,
-    "P-value": p_value,
-    "Standard Error": std_err
-}
 
 # Create the figure
 plt.figure(figsize=(10, 6))

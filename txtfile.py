@@ -120,6 +120,8 @@ var = {
     "Standard Error": std_err
 }
 
-print(f"{var}")
+print(f"Values for linear regression for the average learning progression graph:")
+for key, value in var.items():
+    print(f"{key}: {round(value, 5)}")
 
 
